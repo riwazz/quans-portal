@@ -1,0 +1,16 @@
+<div class="container">
+    <div *ngFor="let makale of makaleler">
+        <h1>{{makale.Baslik}}</h1>
+        <p>
+            <b>Kategori : </b><a href="#" [routerLink]="['/kategori',makale.KategoriId]"> {{makale.KategoriAdi}}</a>
+            &nbsp;&nbsp;
+            <b>Tarih : </b> {{makale.Tarih}}&nbsp;&nbsp;
+            <b>Yazan : </b><a href="#" [routerLink]="['/uyemakale',makale.UyeId]"> {{makale.UyeKadi}}</a>&nbsp;&nbsp;
+            <a href="#" [routerLink]="['/makale',makale.MakaleId]">Makale Oku</a>
+
+        </p>
+        <hr>
+    </div>
+
+
+</div>

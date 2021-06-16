@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cevaplartbl">
+          <Key>
+            <PropertyRef Name="cevapid" />
+          </Key>
+          <Property Name="cevapid" Type="int" Nullable="false" />
+          <Property Name="soruid" Type="int" />
+          <Property Name="uyeid" Type="int" />
+          <Property Name="cevap" Type="nvarchar" MaxLength="1000" />
+          <Property Name="tarih" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="kategoritbl">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="int" Nullable="false" />
+          <Property Name="kategoriAdi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sorulartbl">
+          <Key>
+            <PropertyRef Name="soruid" />
+          </Key>
+          <Property Name="soruid" Type="int" Nullable="false" />
+          <Property Name="soru" Type="nvarchar" MaxLength="1000" />
+          <Property Name="kategoriid" Type="int" />
+          <Property Name="tarih" Type="nvarchar" MaxLength="50" />
+          <Property Name="uyeid" Type="int" />
+          <Property Name="cevapid" Type="int" />
+        </EntityType>
+        <EntityType Name="uyelertbl">
+          <Key>
+            <PropertyRef Name="uyeid" />
+          </Key>
+          <Property Name="uyeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="cinsiyet" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="uyeadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="kayitolmatarihi" Type="nvarchar" MaxLength="50" />
+          <Property Name="seviye" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_cevaplartbl_sorulartbl">
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="0..1" />
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sorulartbl">
+              <PropertyRef Name="soruid" />
+            </Principal>
+            <Dependent Role="cevaplartbl">
+              <PropertyRef Name="soruid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cevaplartbl_uyelertbl">
+          <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyelertbl">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="cevaplartbl">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_cevaplartbl">
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cevaplartbl">
+              <PropertyRef Name="cevapid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="cevapid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_kategoritbl">
+          <End Role="kategoritbl" Type="Self.kategoritbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategoritbl">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="kategoriid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_uyelertbl">
+          <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyelertbl">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="cevaplartbl" EntityType="Self.cevaplartbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kategoritbl" EntityType="Self.kategoritbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sorulartbl" EntityType="Self.sorulartbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uyelertbl" EntityType="Self.uyelertbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cevaplartbl_sorulartbl" Association="Self.FK_cevaplartbl_sorulartbl">
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cevaplartbl_uyelertbl" Association="Self.FK_cevaplartbl_uyelertbl">
+            <End Role="uyelertbl" EntitySet="uyelertbl" />
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_cevaplartbl" Association="Self.FK_sorulartbl_cevaplartbl">
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_kategoritbl" Association="Self.FK_sorulartbl_kategoritbl">
+            <End Role="kategoritbl" EntitySet="kategoritbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_uyelertbl" Association="Self.FK_sorulartbl_uyelertbl">
+            <End Role="uyelertbl" EntitySet="uyelertbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cevaplartbl">
+          <Key>
+            <PropertyRef Name="cevapid" />
+          </Key>
+          <Property Name="cevapid" Type="Int32" Nullable="false" />
+          <Property Name="soruid" Type="Int32" />
+          <Property Name="uyeid" Type="Int32" />
+          <Property Name="cevap" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sorulartbl" Relationship="Self.FK_cevaplartbl_sorulartbl" FromRole="cevaplartbl" ToRole="sorulartbl" />
+          <NavigationProperty Name="uyelertbl" Relationship="Self.FK_cevaplartbl_uyelertbl" FromRole="cevaplartbl" ToRole="uyelertbl" />
+          <NavigationProperty Name="sorulartbl1" Relationship="Self.FK_sorulartbl_cevaplartbl" FromRole="cevaplartbl" ToRole="sorulartbl" />
+        </EntityType>
+        <EntityType Name="kategoritbl">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="Int32" Nullable="false" />
+          <Property Name="kategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sorulartbl" Relationship="Self.FK_sorulartbl_kategoritbl" FromRole="kategoritbl" ToRole="sorulartbl" />
+        </EntityType>
+        <EntityType Name="sorulartbl">
+          <Key>
+            <PropertyRef Name="soruid" />
+          </Key>
+          <Property Name="soruid" Type="Int32" Nullable="false" />
+          <Property Name="soru" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="kategoriid" Type="Int32" />
+          <Property Name="tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeid" Type="Int32" />
+          <Property Name="cevapid" Type="Int32" />
+          <NavigationProperty Name="cevaplartbl" Relationship="Self.FK_cevaplartbl_sorulartbl" FromRole="sorulartbl" ToRole="cevaplartbl" />
+          <NavigationProperty Name="cevaplartbl1" Relationship="Self.FK_sorulartbl_cevaplartbl" FromRole="sorulartbl" ToRole="cevaplartbl" />
+          <NavigationProperty Name="kategoritbl" Relationship="Self.FK_sorulartbl_kategoritbl" FromRole="sorulartbl" ToRole="kategoritbl" />
+          <NavigationProperty Name="uyelertbl" Relationship="Self.FK_sorulartbl_uyelertbl" FromRole="sorulartbl" ToRole="uyelertbl" />
+        </EntityType>
+        <EntityType Name="uyelertbl">
+          <Key>
+            <PropertyRef Name="uyeid" />
+          </Key>
+          <Property Name="uyeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cinsiyet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kayitolmatarihi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="seviye" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cevaplartbl" Relationship="Self.FK_cevaplartbl_uyelertbl" FromRole="uyelertbl" ToRole="cevaplartbl" />
+          <NavigationProperty Name="sorulartbl" Relationship="Self.FK_sorulartbl_uyelertbl" FromRole="uyelertbl" ToRole="sorulartbl" />
+        </EntityType>
+        <Association Name="FK_cevaplartbl_sorulartbl">
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="0..1" />
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sorulartbl">
+              <PropertyRef Name="soruid" />
+            </Principal>
+            <Dependent Role="cevaplartbl">
+              <PropertyRef Name="soruid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cevaplartbl_uyelertbl">
+          <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyelertbl">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="cevaplartbl">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_cevaplartbl">
+          <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cevaplartbl">
+              <PropertyRef Name="cevapid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="cevapid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_kategoritbl">
+          <End Role="kategoritbl" Type="Self.kategoritbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategoritbl">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="kategoriid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sorulartbl_uyelertbl">
+          <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+          <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyelertbl">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="sorulartbl">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cevaplartbl" EntityType="Self.cevaplartbl" />
+          <EntitySet Name="kategoritbl" EntityType="Self.kategoritbl" />
+          <EntitySet Name="sorulartbl" EntityType="Self.sorulartbl" />
+          <EntitySet Name="uyelertbl" EntityType="Self.uyelertbl" />
+          <AssociationSet Name="FK_cevaplartbl_sorulartbl" Association="Self.FK_cevaplartbl_sorulartbl">
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cevaplartbl_uyelertbl" Association="Self.FK_cevaplartbl_uyelertbl">
+            <End Role="uyelertbl" EntitySet="uyelertbl" />
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_cevaplartbl" Association="Self.FK_sorulartbl_cevaplartbl">
+            <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_kategoritbl" Association="Self.FK_sorulartbl_kategoritbl">
+            <End Role="kategoritbl" EntitySet="kategoritbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sorulartbl_uyelertbl" Association="Self.FK_sorulartbl_uyelertbl">
+            <End Role="uyelertbl" EntitySet="uyelertbl" />
+            <End Role="sorulartbl" EntitySet="sorulartbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities4">
+          <EntitySetMapping Name="cevaplartbl">
+            <EntityTypeMapping TypeName="Database1Model.cevaplartbl">
+              <MappingFragment StoreEntitySet="cevaplartbl">
+                <ScalarProperty Name="cevapid" ColumnName="cevapid" />
+                <ScalarProperty Name="soruid" ColumnName="soruid" />
+                <ScalarProperty Name="uyeid" ColumnName="uyeid" />
+                <ScalarProperty Name="cevap" ColumnName="cevap" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kategoritbl">
+            <EntityTypeMapping TypeName="Database1Model.kategoritbl">
+              <MappingFragment StoreEntitySet="kategoritbl">
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="kategoriAdi" ColumnName="kategoriAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sorulartbl">
+            <EntityTypeMapping TypeName="Database1Model.sorulartbl">
+              <MappingFragment StoreEntitySet="sorulartbl">
+                <ScalarProperty Name="soruid" ColumnName="soruid" />
+                <ScalarProperty Name="soru" ColumnName="soru" />
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="uyeid" ColumnName="uyeid" />
+                <ScalarProperty Name="cevapid" ColumnName="cevapid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uyelertbl">
+            <EntityTypeMapping TypeName="Database1Model.uyelertbl">
+              <MappingFragment StoreEntitySet="uyelertbl">
+                <ScalarProperty Name="uyeid" ColumnName="uyeid" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="uyeadi" ColumnName="uyeadi" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="kayitolmatarihi" ColumnName="kayitolmatarihi" />
+                <ScalarProperty Name="seviye" ColumnName="seviye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

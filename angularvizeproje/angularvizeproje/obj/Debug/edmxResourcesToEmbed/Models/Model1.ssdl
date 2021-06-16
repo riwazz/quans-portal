@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cevaplartbl">
+    <Key>
+      <PropertyRef Name="cevapid" />
+    </Key>
+    <Property Name="cevapid" Type="int" Nullable="false" />
+    <Property Name="soruid" Type="int" />
+    <Property Name="uyeid" Type="int" />
+    <Property Name="cevap" Type="nvarchar" MaxLength="1000" />
+    <Property Name="tarih" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="kategoritbl">
+    <Key>
+      <PropertyRef Name="kategoriid" />
+    </Key>
+    <Property Name="kategoriid" Type="int" Nullable="false" />
+    <Property Name="kategoriAdi" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sorulartbl">
+    <Key>
+      <PropertyRef Name="soruid" />
+    </Key>
+    <Property Name="soruid" Type="int" Nullable="false" />
+    <Property Name="soru" Type="nvarchar" MaxLength="1000" />
+    <Property Name="kategoriid" Type="int" />
+    <Property Name="tarih" Type="nvarchar" MaxLength="50" />
+    <Property Name="uyeid" Type="int" />
+    <Property Name="cevapid" Type="int" />
+  </EntityType>
+  <EntityType Name="uyelertbl">
+    <Key>
+      <PropertyRef Name="uyeid" />
+    </Key>
+    <Property Name="uyeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="soyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="cinsiyet" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="uyeadi" Type="nvarchar" MaxLength="50" />
+    <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+    <Property Name="kayitolmatarihi" Type="nvarchar" MaxLength="50" />
+    <Property Name="seviye" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_cevaplartbl_sorulartbl">
+    <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="0..1" />
+    <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sorulartbl">
+        <PropertyRef Name="soruid" />
+      </Principal>
+      <Dependent Role="cevaplartbl">
+        <PropertyRef Name="soruid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cevaplartbl_uyelertbl">
+    <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+    <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="uyelertbl">
+        <PropertyRef Name="uyeid" />
+      </Principal>
+      <Dependent Role="cevaplartbl">
+        <PropertyRef Name="uyeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sorulartbl_cevaplartbl">
+    <End Role="cevaplartbl" Type="Self.cevaplartbl" Multiplicity="0..1" />
+    <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cevaplartbl">
+        <PropertyRef Name="cevapid" />
+      </Principal>
+      <Dependent Role="sorulartbl">
+        <PropertyRef Name="cevapid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sorulartbl_kategoritbl">
+    <End Role="kategoritbl" Type="Self.kategoritbl" Multiplicity="0..1" />
+    <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kategoritbl">
+        <PropertyRef Name="kategoriid" />
+      </Principal>
+      <Dependent Role="sorulartbl">
+        <PropertyRef Name="kategoriid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sorulartbl_uyelertbl">
+    <End Role="uyelertbl" Type="Self.uyelertbl" Multiplicity="0..1" />
+    <End Role="sorulartbl" Type="Self.sorulartbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="uyelertbl">
+        <PropertyRef Name="uyeid" />
+      </Principal>
+      <Dependent Role="sorulartbl">
+        <PropertyRef Name="uyeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="cevaplartbl" EntityType="Self.cevaplartbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="kategoritbl" EntityType="Self.kategoritbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sorulartbl" EntityType="Self.sorulartbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="uyelertbl" EntityType="Self.uyelertbl" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_cevaplartbl_sorulartbl" Association="Self.FK_cevaplartbl_sorulartbl">
+      <End Role="sorulartbl" EntitySet="sorulartbl" />
+      <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cevaplartbl_uyelertbl" Association="Self.FK_cevaplartbl_uyelertbl">
+      <End Role="uyelertbl" EntitySet="uyelertbl" />
+      <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sorulartbl_cevaplartbl" Association="Self.FK_sorulartbl_cevaplartbl">
+      <End Role="cevaplartbl" EntitySet="cevaplartbl" />
+      <End Role="sorulartbl" EntitySet="sorulartbl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sorulartbl_kategoritbl" Association="Self.FK_sorulartbl_kategoritbl">
+      <End Role="kategoritbl" EntitySet="kategoritbl" />
+      <End Role="sorulartbl" EntitySet="sorulartbl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sorulartbl_uyelertbl" Association="Self.FK_sorulartbl_uyelertbl">
+      <End Role="uyelertbl" EntitySet="uyelertbl" />
+      <End Role="sorulartbl" EntitySet="sorulartbl" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
